@@ -13,4 +13,4 @@ Uses can bookmark images, like them, follow each other and there is also an acti
 4. docker run -it --rm --name redis -p 6379:6379 redis
 5. python manange.py makemigrations
 6. python manage.py migrate
-7. python manage.py runserver
+7. python manage.py runserver_plus --cert-file cert.crt (You need HTTPS to use the JS scripts to bookmark)
