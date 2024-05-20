@@ -1,5 +1,5 @@
 asgiref
-Django
+Django==4.2
 Pillow
 sqlparse
 werkzeug
