@@ -9,3 +9,5 @@ easy-thumbnails
 django-debug-toolbar
 redis
 django-extensions
+psycopg2-binary
+
