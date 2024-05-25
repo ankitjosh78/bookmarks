@@ -6,11 +6,32 @@ Uses can bookmark images, like them, follow each other and there is also an acti
 
 **How to run the project?**
 
-0. Activate your virtual environment(suggested)
-1. pip install -r requirements.txt
-2. Install Docker
-3. docker pull redis
-4. docker run -it --rm --name redis -p 6379:6379 redis
-5. python manange.py makemigrations
-6. python manage.py migrate
-7. python manage.py runserver_plus --cert-file cert.crt (You need HTTPS to use the JS scripts to bookmark)
+0. Install Docker
+1. Create and .env file which will have the following parameters depending on your setup:
+   
+   ```
+   DOMAIN
+   
+   DATABASE_NAME
+   
+   DATABASE_USER
+   
+   DATABASE_PASSWORD
+   
+   EMAIL_BACKEND
+   
+   EMAIL_HOST
+   
+   EMAIL_HOST_USER
+   
+   EMAIL_HOST_USER_PASSWORD
+   
+   EMAIL_PORT
+   
+   EMAIL_USE_TLS
+   ```
+
+2. Setup your nginx.conf file with appropriate $host value
+3. Run `docker-compose up --build -d`
+4. Your site should be up and running at port 80 (default) and can be changed in nginx.conf.
+
