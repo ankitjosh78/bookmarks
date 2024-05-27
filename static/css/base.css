@@ -195,9 +195,12 @@ ul.messages li a.close {
 /* images */
 
 .image-preview, .image-detail {
-    max-width:300px;
-    float:left;
-    margin:0 20px 20px 0;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    float: left;
+    margin: 0 auto 20px;
+    display: block;
 }
 .image-detail { margin-top:20px; }
 .image-info div {
@@ -274,4 +277,130 @@ img.user-detail {
 .action .date {
     font-style:italic;
     color:#ccc;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 600px) {
+    #header {
+        padding: 10px 20px;
+    }
+
+    #content {
+        padding: 30px 20px;
+    }
+
+    .count {
+        margin: 20px 10px 0;
+    }
+
+    #header ul.menu {
+        float: none;
+    }
+    
+    #header .logo, #header .user {
+        float: none;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    #header .user {
+        padding-top: 0;
+    }
+
+    #header ul.menu li {
+        float: none;
+        text-align: center;
+        padding: 4px 0;
+    }
+
+    #image-list .image {
+        width: 100%;
+        height: auto;
+        margin: 0 0 10px 0;
+    }
+
+    #image-list img {
+        width: 100%;
+        height: auto;
+    }
+
+    #people-list .user {
+        width: 100%;
+        float: none;
+    }
+
+    #people-list img {
+        width: 100%;
+        height: auto;
+    }
+
+    img.user-detail {
+        width: 100%;
+        height: auto;
+        float: none;
+    }
+
+    .profile-info {
+        width: 100%;
+        float: none;
+        margin-right: 0;
+    }
+
+    .action .images {
+        width: 100%;
+        float: none;
+        margin: 0 0 10px 0;
+    }
+
+    .image-detail, .image-info div {
+        width: 100%;
+        float: none;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 768px) {
+    #header {
+        padding: 10px 50px;
+    }
+
+    #content {
+        padding: 30px 50px;
+    }
+
+    .count {
+        margin: 20px 10px 0;
+    }
+}
+
+@media (min-width: 768px) {
+    #header {
+        padding: 10px 100px;
+    }
+
+    #content {
+        padding: 30px 100px;
+    }
+
+    #header .logo {
+        float: left;
+        margin-right: 10%;
+    }
+
+    #header ul.menu {
+        float: left;
+    }
+
+    #header .user {
+        float: right;
+    }
+}
+
+@media (min-width: 1024px) {
+    #header .logo {
+        margin-right: 10%;
+    }
+
+    .image-info div {
+        padding: 20px 0;
+    }
 }
