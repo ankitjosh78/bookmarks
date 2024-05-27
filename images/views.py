@@ -1,17 +1,16 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from django.http import HttpResponse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .forms import ImageCreateForm, ImageUploadForm
-from .models import Image
-from actions.utils import create_action
 import redis
 from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_POST
 
+from actions.utils import create_action
+
+from .forms import ImageCreateForm, ImageUploadForm
+from .models import Image
 
 # connect to redis
 r = redis.Redis(

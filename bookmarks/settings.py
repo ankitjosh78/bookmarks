@@ -168,6 +168,10 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-REDIS_HOST = "redis"
-REDIS_PORT = 6379
-REDIS_DB = 0
+# Redis configuration
+REDIS_HOST = os.environ.get("REDIS_HOST")
+REDIS_PORT = os.environ.get("REDIS_PORT")
+REDIS_DB = os.environ.get("REDIS_DB")
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880 # 5 MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880 # 5 MB

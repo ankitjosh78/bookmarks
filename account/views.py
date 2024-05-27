@@ -1,23 +1,64 @@
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
-from django.contrib.auth import authenticate, login, get_user_model
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.contrib.auth.models import User
-from django.contrib.sites.shortcuts import get_current_site
-from django.views.decorators.http import require_POST
-from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_str
-from django.core.mail import EmailMessage
-from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
-from .models import Profile
-from .models import Contact
-from .tokens import account_activation_token
-from actions.utils import create_action
-from actions.models import Action
+from typing import Any
 
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth.views import (LoginView, LogoutView,
+                                       PasswordChangeDoneView,
+                                       PasswordChangeView,
+                                       PasswordResetCompleteView,
+                                       PasswordResetConfirmView,
+                                       PasswordResetDoneView,
+                                       PasswordResetView)
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
+from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.views.decorators.http import require_POST
+
+from actions.models import Action
+from actions.utils import create_action
+
+from .forms import ProfileEditForm, UserEditForm, UserRegistrationForm
+from .models import Contact, Profile
+from .tokens import account_activation_token
+
+
+class UserLoginView(SuccessMessageMixin, LoginView):
+    redirect_authenticated_user=True
+    success_message = 'You were successfully logged in.'
+    
+class UserLogoutView(LogoutView):
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        if request.user.is_authenticated:
+            messages.success(request, f'{request.user.first_name} successfully logged out')
+        else:
+            messages.error(request, 'You are not logged in. Please login first!')
+            return redirect('login')
+        return super().dispatch(request, *args, **kwargs)
+
+class UserPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
+    success_message = 'Your password was changed successfully.'
+
+class UserPasswordChangeDoneView(SuccessMessageMixin, PasswordChangeDoneView):
+    pass
+
+class UserPasswordResetView(PasswordResetView):
+    pass
+
+class UserPasswordResetDoneView(PasswordResetDoneView):
+    pass
+
+class UserPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView):
+    success_message = 'Your password was successfully reset.'
+
+class UserPasswordResetCompleteView(PasswordResetCompleteView):
+    pass
 
 @login_required
 def dashboard(request):
@@ -36,6 +77,8 @@ def dashboard(request):
 
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect("/")
     if request.method == "POST":
         user_form = UserRegistrationForm(request.POST)
         if user_form.is_valid():
@@ -48,7 +91,9 @@ def register(request):
             new_user.save()
             # Create the user profile
             Profile.objects.create(user=new_user)
+            # Send email verification 
             activate_email(request, new_user, user_form.cleaned_data.get("email"))
+            # Account creation action
             create_action(new_user, "has created an account")
             return render(request, "account/register_done.html", {"new_user": new_user})
     else:

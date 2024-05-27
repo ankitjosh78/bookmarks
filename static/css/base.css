@@ -36,7 +36,7 @@ ol {
 }
 
 #header {
-    padding:10px 100px;
+    padding:10px 20px;
     font-size:14px;
     background:#12c064;
     color:#fff;
@@ -81,7 +81,7 @@ ol {
 }
 
 #content {
-    padding:30px 100px;
+    padding:30px 20px;
 }
 
 /* forms */
@@ -132,7 +132,7 @@ input[type=submit], a.button {
 }
 /* messages */
 ul.messages {
-    margin:10px 100px;
+    margin:10px 20px;
     padding:0;
     list-style-type:
     none;
