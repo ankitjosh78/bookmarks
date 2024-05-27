@@ -45,7 +45,7 @@ class UserLogoutView(LogoutView):
 class UserPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
     success_message = 'Your password was changed successfully.'
 
-class UserPasswordChangeDoneView(SuccessMessageMixin, PasswordChangeDoneView):
+class UserPasswordChangeDoneView(PasswordChangeDoneView):
     pass
 
 class UserPasswordResetView(PasswordResetView):
