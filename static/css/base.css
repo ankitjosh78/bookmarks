@@ -134,8 +134,7 @@ input[type=submit], a.button {
 ul.messages {
     margin:10px 20px;
     padding:0;
-    list-style-type:
-    none;
+    list-style-type:none;
 }
 ul.messages li.success,
 ul.messages li.warning,
@@ -214,7 +213,19 @@ ul.messages li a.close {
     padding:10px 20px;
     margin:20px 10px 0;
 }
-a.like, a.follow { float:right; margin-top:-8px; }
+a.like, a.follow { 
+    float:right; 
+    margin-top:-8px; 
+    display: block; 
+}
+
+/* Aligning like button */
+#image-list .info a.like {
+    margin-top: 0;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
 
 #image-list { overflow:hidden; }
 #image-list .image {
@@ -224,10 +235,18 @@ a.like, a.follow { float:right; margin-top:-8px; }
     margin:0 10px 10px 10px;
     border-top:8px solid #12c064;
     background:#eee;
+    position: relative;
 }
-#image-list img { width:220px; height:220px; }
-#image-list .info { padding:10px; }
-#image-list .info a { color:#333; }
+#image-list img { 
+    width:220px; 
+    height:220px; 
+}
+#image-list .info { 
+    padding:10px; 
+}
+#image-list .info a { 
+    color:#333; 
+}
 .image-likes div {
     float:left;
     width:auto;
@@ -242,18 +261,23 @@ a.like, a.follow { float:right; margin-top:-8px; }
 
 /* users */
 #people-list img {
-    width:180px;
-    height:180px;
+    width:100%;
+    height:auto;
+    max-width:180px;
     border-radius:50%;
     margin-bottom:20px;
 }
 #people-list .user {
-    width:180px;
+    width:100%;
+    max-width:180px;
     float:left;
     overflow:auto;
     padding:10px;
+    margin: 0 auto;
 }
-#people-list .info { text-align:center; }
+#people-list .info { 
+    text-align:center; 
+}
 img.user-detail {
     border-radius:50%;
     float:left;
@@ -263,7 +287,9 @@ img.user-detail {
     overflow:auto;
     margin-right:20px;
 }
-.image-container { margin-top:40px; }
+.image-container { 
+    margin-top:40px; 
+}
 
 /* actions */
 .action {
@@ -326,11 +352,14 @@ img.user-detail {
 
     #people-list .user {
         width: 100%;
+        max-width: 100%;
         float: none;
+        padding: 10px 0;
     }
 
     #people-list img {
         width: 100%;
+        max-width: 100px;
         height: auto;
     }
 
