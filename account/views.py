@@ -92,7 +92,7 @@ def register(request):
             # Create the user profile
             Profile.objects.create(user=new_user)
             # Send email verification 
-            activate_email(request, new_user, user_form.cleaned_data.get("email"))
+            # activate_email(request, new_user, user_form.cleaned_data.get("email"))
             # Account creation action
             create_action(new_user, "has created an account")
             return render(request, "account/register_done.html", {"new_user": new_user})

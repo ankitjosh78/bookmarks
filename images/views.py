@@ -2,11 +2,13 @@ import redis
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
+from actions.models import Action
 from actions.utils import create_action
 
 from .forms import ImageCreateForm, ImageUploadForm
@@ -90,6 +92,9 @@ def image_like(request):
                 create_action(request.user, "likes", image)
             else:
                 image.users_like.remove(request.user)
+                content_type = ContentType.objects.get_for_model(image)
+                Action.objects.filter(user=request.user, verb="likes", target_ct=content_type, target_id=image.id).delete()
+
             return JsonResponse({"status": "ok"})
         except Image.DoesNotExist:
             pass
