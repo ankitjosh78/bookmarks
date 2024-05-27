@@ -38,7 +38,7 @@ class UserLogoutView(LogoutView):
         if request.user.is_authenticated:
             messages.success(request, f'{request.user.first_name} successfully logged out')
         else:
-            messages.error(request, 'You are not logged in. Please login first!')
+            messages.warning(request, 'You are not logged in. Please login first!')
             return redirect('login')
         return super().dispatch(request, *args, **kwargs)
 
