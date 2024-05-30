@@ -5,11 +5,13 @@ from . import views
 app_name = "images"
 
 urlpatterns = [
-    # Images 
-    path("", views.image_list, name="list"),
-    path("create/", views.image_create, name="create"),
-    path("upload/", views.image_upload, name="upload"),
-    path("detail/<int:id>/<slug:slug>/", views.image_detail, name="detail"),
-    path("like/", views.image_like, name="like"),
-    path("ranking/", views.image_ranking, name="ranking"),
+    # Images
+    path("", views.ImageListView.as_view(), name="list"),
+    path("create/", views.ImageCreateView.as_view(), name="create"),
+    path("upload/", views.ImageUploadView.as_view(), name="upload"),
+    path(
+        "detail/<int:id>/<slug:slug>/", views.ImageDetailView.as_view(), name="detail"
+    ),
+    path("like/", views.ImageLikeView.as_view(), name="like"),
+    path("ranking/", views.ImageRankingView.as_view(), name="ranking"),
 ]
